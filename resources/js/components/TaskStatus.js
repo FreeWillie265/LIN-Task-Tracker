@@ -34,10 +34,10 @@ export default function TaskStatus({ task }) {
                 open={openDialog}
                 setOpen={setOpenDialog}
                 title="Status Change"
-                text={`Are you sure you want to change ${task.title}'s activity status?`}
+                text={`Are you sure you want to change ${task.title}'s completion status?`}
             />
             <CustomSwitch checked={active} setChecked={() => setOpenDialog(true)} color="info" />
-            <CircularProgress color="info" style={{ visibility: loading }} thickness={1} />
+            {/* <CircularProgress color="info" style={{ visibility: loading }} thickness={1} /> */}
         </>
     );
 }
