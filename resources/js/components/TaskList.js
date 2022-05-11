@@ -15,6 +15,7 @@ import {
     Chip
 } from '@mui/material';
 import TaskListHead from './TaskListHead';
+import TaskStatus from './TaskStatus';
 
 
 const columns = [
@@ -114,7 +115,9 @@ function TaskList() {
                                     <TableCell component="th" scope="row">{title}</TableCell>
                                     <TableCell align="left">{description}</TableCell>
                                     <TableCell align="left">{dueDate}</TableCell>
-                                    <TableCell align="left">{completionStatus ? 'complete' : 'incomplete'}</TableCell>
+                                    <TableCell align="left">
+                                        <TaskStatus task={row} />
+                                    </TableCell>
                                 </TableRow>
                             );
                         })}
