@@ -1,21 +1,15 @@
 import React from 'react';
 import { useState } from 'react';
 import {
-    Card,
     Table,
-    Stack,
-    Button,
     TableRow,
     TableBody,
     TableCell,
-    Container,
-    Typography,
-    TableContainer,
-    TablePagination,
-    Chip
+    TablePagination
 } from '@mui/material';
 import TaskListHead from './TaskListHead';
 import TaskStatus from './TaskStatus';
+import AddTaskModal from './AddTaskModal';
 
 
 const columns = [
@@ -60,6 +54,7 @@ function TaskList() {
     const [selected] = useState([]);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
+    const [addTaskOpen, setAddTaskOpen] = useState(false);
 
     const handleRequestSort = (event, property) => {
         const isAsc = orderBy === property && order === 'asc';
@@ -78,10 +73,16 @@ function TaskList() {
 
     return (
         <>
+            <AddTaskModal open={addTaskOpen} setOpen={setAddTaskOpen} />
             <div className="card-header">
                 <span className="float-sm-start">Tasks</span>
                 <span className="float-sm-end">
-                    <button className="btn btn-success">New Task</button>
+                    <button
+                        className="btn btn-success"
+                        onClick={() => setAddTaskOpen(true)}
+                    >
+                        New Task
+                    </button>
                 </span>
             </div>
             <div className="card-body">
@@ -102,8 +103,7 @@ function TaskList() {
                             const {
                                 title,
                                 description,
-                                dueDate,
-                                completionStatus
+                                dueDate
                             } = row;
 
                             return (
