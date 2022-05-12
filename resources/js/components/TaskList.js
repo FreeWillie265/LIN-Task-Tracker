@@ -5,8 +5,9 @@ import {
     TableRow,
     TableBody,
     TableCell,
-    TablePagination
+    TablePagination, IconButton
 } from '@mui/material';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import moment from 'moment';
 import TaskListHead from './TaskListHead';
 import TaskStatus from './TaskStatus';
@@ -112,6 +113,11 @@ function TaskList() {
                                     <TableCell align="left">{moment(dueDate).format('MMM-DD-YYYY')}</TableCell>
                                     <TableCell align="left">
                                         <TaskStatus task={row} />
+                                    </TableCell>
+                                    <TableCell align="right">
+                                        <IconButton>
+                                            <VisibilityIcon />
+                                        </IconButton>
                                     </TableCell>
                                     <TableCell align="right">
                                         <TaskMoreMenu task={row} users={users}/>

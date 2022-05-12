@@ -7,9 +7,9 @@ import {
     Menu,
     MenuItem
 } from '@mui/material';
-import moreVerticalFill from '@iconify/icons-eva/more-vertical-fill';
-import editFill from '@iconify/icons-eva/edit-fill';
-import trash2Outline from '@iconify/icons-eva/trash-2-outline';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 import AlertDialogSlide from './AlertDialogSlide';
 import EditTaskModal from './EditTaskModal';
 
@@ -61,7 +61,7 @@ export default function TaskMoreMenu({ task, users }) {
             />
 
             <IconButton ref={ref} onClick={() => setIsOpen(true)}>
-                <Icon icon={moreVerticalFill} width={20} height={20} />
+                <MoreVertIcon />
             </IconButton>
             <Menu
                 open={isOpen}
@@ -82,7 +82,7 @@ export default function TaskMoreMenu({ task, users }) {
                     sx={{ color: 'text.secondary' }}
                 >
                     <ListItemIcon>
-                        <Icon icon={editFill} width={24} height={24} />
+                        <EditIcon />
                     </ListItemIcon>
                     <ListItemText primary="Edit" primaryTypographyProps={{ variant: 'body2' }} />
                 </MenuItem>
@@ -95,7 +95,7 @@ export default function TaskMoreMenu({ task, users }) {
                     sx={{ color: 'text.secondary' }}
                 >
                     <ListItemIcon>
-                        <Icon icon={trash2Outline} width={24} height={24} />
+                        <DeleteIcon />
                     </ListItemIcon>
                     <ListItemText primary="Delete" primaryTypographyProps={{ variant: 'body2' }} />
                 </MenuItem>
