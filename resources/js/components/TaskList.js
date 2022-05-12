@@ -10,6 +10,7 @@ import {
 import TaskListHead from './TaskListHead';
 import TaskStatus from './TaskStatus';
 import AddTaskModal from './AddTaskModal';
+import TaskMoreMenu from './taskMoreMenu';
 
 
 const columns = [
@@ -117,6 +118,9 @@ function TaskList() {
                                     <TableCell align="left">{dueDate}</TableCell>
                                     <TableCell align="left">
                                         <TaskStatus task={row} />
+                                    </TableCell>
+                                    <TableCell align="right">
+                                        <TaskMoreMenu task={row} />
                                     </TableCell>
                                 </TableRow>
                             );

@@ -82,7 +82,7 @@ export default function AddTaskModal({open, setOpen}) {
                                     variant="contained"
                                     loading={isSubmitting}
                                 >
-                                    Add User
+                                    Add Task
                                 </LoadingButton>
                             </Stack>
                         </DialogContent>
