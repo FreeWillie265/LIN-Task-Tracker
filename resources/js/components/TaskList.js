@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { useState } from 'react';
 import {
     Table,
@@ -7,6 +7,7 @@ import {
     TableCell,
     TablePagination
 } from '@mui/material';
+import moment from 'moment';
 import TaskListHead from './TaskListHead';
 import TaskStatus from './TaskStatus';
 import AddTaskModal from './AddTaskModal';
@@ -19,33 +20,6 @@ const columns = [
     { label: 'Due Date', id: 'dueDate', alignRight: false },
     { label: 'Completion Status', id: 'completionStatus', alignRight: false }
 ];
-const tasks = [
-    {
-        title: 'Landing page Design',
-        description: 'Create several wireframes of how the landing page will look like',
-        dueDate: "2022-07-11",
-        completionStatus: false
-    },
-    {
-        title: 'User Editing',
-        description: 'Provide Function to edit users',
-        dueDate: "2022-07-11",
-        completionStatus: false
-    },
-    {
-        title: 'Deploy',
-        description: 'Dockerize app and deploy in kubernetes',
-        dueDate: "2022-07-11",
-        completionStatus: false
-    },
-    {
-        title: 'Code Review',
-        description: 'Create a page where code reviewers write their findings and recommendations',
-        dueDate: "2022-07-11",
-        completionStatus: false
-    }
-
-];
 
 function TaskList() {
 
@@ -56,6 +30,16 @@ function TaskList() {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
     const [addTaskOpen, setAddTaskOpen] = useState(false);
+    const [tasks, setTasks] = useState([]);
+
+    useEffect(() => {
+        axios.get('/tasks').then(
+            (response) => {
+                setTasks(response.data);
+            },
+            (error) => console.log(error)
+        );
+    }, []);
 
     const handleRequestSort = (event, property) => {
         const isAsc = orderBy === property && order === 'asc';
@@ -115,7 +99,7 @@ function TaskList() {
                                 >
                                     <TableCell component="th" scope="row">{title}</TableCell>
                                     <TableCell align="left">{description}</TableCell>
-                                    <TableCell align="left">{dueDate}</TableCell>
+                                    <TableCell align="left">{moment(dueDate).format('MMM-DD-YYYY')}</TableCell>
                                     <TableCell align="left">
                                         <TaskStatus task={row} />
                                     </TableCell>

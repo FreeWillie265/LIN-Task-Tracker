@@ -15,7 +15,7 @@ class TasksController extends Controller
      */
     public function index()
     {
-        return response(Task::all());
+        return response(Task::orderBy('id', 'DESC')->get());
     }
 
     /**
@@ -79,7 +79,16 @@ class TasksController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $task = Task::find($id);
+        $task->title = $request->title;
+        $task->description = $request->description;
+        $task->dueDate = $request->dueDate;
+        $task->completionStatus = $request->completionStatus;
+        $task->assignedUser = $request->assignedUser;
+
+        $task->save();
+
+        return response("Task updated successfully");
     }
 
     /**

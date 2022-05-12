@@ -12,7 +12,7 @@ export default function TaskStatus({ task }) {
 
     const changeActiveStatus = () => {
         setLoading('visible');
-        setActive(!active);
+        setActive(active === 0);
         /*dispatch(changeUserActivity(task)).then(
             (response) => {
                 setActive(!active);
@@ -36,7 +36,7 @@ export default function TaskStatus({ task }) {
                 title="Status Change"
                 text={`Are you sure you want to change ${task.title}'s completion status?`}
             />
-            <CustomSwitch checked={active} setChecked={() => setOpenDialog(true)} color="info" />
+            <CustomSwitch checked={active === 1} setChecked={() => setOpenDialog(true)} color="info" />
             {/* <CircularProgress color="info" style={{ visibility: loading }} thickness={1} /> */}
         </>
     );

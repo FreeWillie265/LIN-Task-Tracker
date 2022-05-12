@@ -2,10 +2,11 @@ import * as React from 'react';
 import * as Yup from 'yup';
 import { Form, FormikProvider, useFormik } from 'formik';
 import DialogTitle from '@mui/material/DialogTitle';
-import {Dialog, DialogActions, DialogContent, Stack, TextField} from '@mui/material';
+import {Dialog, DialogActions, DialogContent, FormControl, InputLabel, Select, Stack, TextField} from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import DialogContentText from '@mui/material/DialogContentText';
 import Button from '@mui/material/Button';
+import moment from 'moment';
 
 export default function EditTaskModal({task, open, setOpen}) {
     const handleClose = () => setOpen(false);
@@ -13,7 +14,7 @@ export default function EditTaskModal({task, open, setOpen}) {
     const AddTaskSchema = Yup.object().shape({
         title: Yup.string()
             .min(2, 'Too Short!')
-            .max(20, 'Too Long!')
+            .max(100, 'Too Long!')
             .required('Task Title is Required'),
         description: Yup.string(),
         dueDate: Yup.date().required('Due Date is Required'),
@@ -24,13 +25,20 @@ export default function EditTaskModal({task, open, setOpen}) {
         initialValues: {
             title: task.title || '',
             description: task.description || '',
-            dueDate: task.dueDate || '',
-            assignedUser: task.assignedUser || ''
+            dueDate: moment(task.dueDate).format('YYYY-MM-DD') || '',
+            assignedUser: task.assignedUser || '',
+            completionStatus: task.completionStatus || 0
         },
         validationSchema: AddTaskSchema,
         onSubmit: (values, { setSubmitting }) => {
-            console.log(`Submitting ${values}`);
+            console.log(`Submitting ${JSON.stringify(values)}`);
             setSubmitting(false);
+            axios.put(`tasks/${task.id}`, values).then(
+                (response) => {
+                    console.log(`response: ${JSON.stringify(response.data)}`);
+                },
+                (errors) => console.log(errors)
+            );
         }
     });
 
@@ -75,6 +83,28 @@ export default function EditTaskModal({task, open, setOpen}) {
                                     error={Boolean(touched.dueDate && errors.dueDate)}
                                     helperText={touched.dueDate && errors.dueDate}
                                 />
+
+                                <FormControl fullWidth error={Boolean(touched.userId && errors.userId)}>
+                                <InputLabel id="userId">Username</InputLabel>
+                                <Select
+                                    fullWidth
+                                    labelId="Username"
+                                    label="Username"
+                                    {...getFieldProps('userId')}
+                                    error={Boolean(touched.userId && errors.userId)}
+                                >
+                                    {users.map((user) => {
+                                        const { id, userName } = user;
+
+                                        return (
+                                            <MenuItem key={id} value={id}>
+                                                {userName}
+                                            </MenuItem>
+                                        );
+                                    })}
+                                </Select>
+                            </FormControl>
+
 
 
                                 <LoadingButton
