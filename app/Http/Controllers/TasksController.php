@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Task;
 use App\Models\User;
+use App\Notifications\TaskAssignedNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 
 class TasksController extends Controller
 {
@@ -57,6 +59,8 @@ class TasksController extends Controller
 
         $user->tasks()->save($task);
 
+        Notification::send($user, new TaskAssignedNotification($user->name));
+
         return response($user);
     }
 
@@ -70,6 +74,7 @@ class TasksController extends Controller
     public function update(Request $request, $id)
     {
         $task = Task::find($id);
+        $assignedUser = $task->assignedUser;
         $task->title = $request->title;
         $task->description = $request->description;
         $task->dueDate = $request->dueDate;
@@ -77,6 +82,11 @@ class TasksController extends Controller
         $task->assignedUser = $request->assignedUser;
 
         $task->save();
+
+        if ($assignedUser != $request->assignedUser){
+            $user = User::find($request->assignedUser);
+            Notification::send($user, new TaskAssignedNotification($user->name));
+        }
 
         return response("Task updated successfully");
     }
