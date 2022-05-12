@@ -1,7 +1,8 @@
-import {useRef, useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {
+    Grid,
     Icon,
-    IconButton,
+    IconButton, ListItem,
     ListItemIcon,
     ListItemText,
     Menu,
@@ -12,6 +13,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AlertDialogSlide from './AlertDialogSlide';
 import EditTaskModal from './EditTaskModal';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import ViewTaskModal from './ViewTaskModal';
 
 
 export default function TaskMoreMenu({ task, users }) {
@@ -20,6 +23,7 @@ export default function TaskMoreMenu({ task, users }) {
     const [editOpen, setEditOpen] = useState(false);
     const [deleteOpen, setDeleteOpen] = useState(false);
     const [editModalOpen, setEditModalOpen] = useState(false);
+    const [viewOpen, setViewOpen] = useState(false);
 
     function editTask() {
         setEditModalOpen(true);
@@ -36,6 +40,7 @@ export default function TaskMoreMenu({ task, users }) {
 
     return (
         <>
+            <ViewTaskModal open={viewOpen} setOpen={setViewOpen} task={task}/>
             <AlertDialogSlide
                 action={() => editTask()}
                 open={editOpen}
@@ -59,10 +64,14 @@ export default function TaskMoreMenu({ task, users }) {
                 task={task}
                 users={users}
             />
-
-            <IconButton ref={ref} onClick={() => setIsOpen(true)}>
-                <MoreVertIcon />
-            </IconButton>
+            <ListItem>
+                <IconButton onClick={() => setViewOpen(true)}>
+                    <VisibilityIcon />
+                </IconButton>
+                <IconButton ref={ref} onClick={() => setIsOpen(true)}>
+                    <MoreVertIcon />
+                </IconButton>
+            </ListItem>
             <Menu
                 open={isOpen}
                 anchorEl={ref.current}

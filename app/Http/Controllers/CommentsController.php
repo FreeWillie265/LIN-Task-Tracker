@@ -17,6 +17,11 @@ class CommentsController extends Controller
         return response()->json(Comment::orderBy('id', 'DESC')->get());
     }
 
+    public function getTaskComments($id) {
+        $comments = Comment::where('task_id',  $id)->orderBy('id', 'DESC')->with('user')->get();
+        return response()->json($comments);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

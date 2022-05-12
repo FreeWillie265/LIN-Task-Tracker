@@ -13,6 +13,7 @@ import TaskListHead from './TaskListHead';
 import TaskStatus from './TaskStatus';
 import AddTaskModal from './AddTaskModal';
 import TaskMoreMenu from './taskMoreMenu';
+import ViewTaskModal from './ViewTaskModal';
 
 
 const columns = [
@@ -113,11 +114,6 @@ function TaskList() {
                                     <TableCell align="left">{moment(dueDate).format('MMM-DD-YYYY')}</TableCell>
                                     <TableCell align="left">
                                         <TaskStatus task={row} />
-                                    </TableCell>
-                                    <TableCell align="right">
-                                        <IconButton>
-                                            <VisibilityIcon />
-                                        </IconButton>
                                     </TableCell>
                                     <TableCell align="right">
                                         <TaskMoreMenu task={row} users={users}/>

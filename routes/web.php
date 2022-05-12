@@ -23,3 +23,4 @@ Route::resource('tasks', TasksController::class);
 Route::resource('users', UsersController::class);
 Route::patch('toggle-completion-status/{id}', [TasksController::class, 'toggleCompletionStatus']);
 Route::resource('comments', CommentsController::class);
+Route::get('task-comments/{id}', [CommentsController::class, 'getTaskComments']);
