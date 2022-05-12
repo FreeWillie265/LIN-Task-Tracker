@@ -11,10 +11,12 @@ import {
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import CommentIcon from '@mui/icons-material/Comment';
 import AlertDialogSlide from './AlertDialogSlide';
 import EditTaskModal from './EditTaskModal';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import ViewTaskModal from './ViewTaskModal';
+import AddCommentModal from './AddCommentModal';
 
 
 export default function TaskMoreMenu({ task, users }) {
@@ -22,6 +24,7 @@ export default function TaskMoreMenu({ task, users }) {
     const [isOpen, setIsOpen] = useState(false);
     const [editOpen, setEditOpen] = useState(false);
     const [deleteOpen, setDeleteOpen] = useState(false);
+    const [commentOpen, setCommentOpen] = useState(false);
     const [editModalOpen, setEditModalOpen] = useState(false);
     const [viewOpen, setViewOpen] = useState(false);
 
@@ -64,6 +67,12 @@ export default function TaskMoreMenu({ task, users }) {
                 task={task}
                 users={users}
             />
+
+            <AddCommentModal
+                open={commentOpen}
+                setOpen={setCommentOpen}
+                task={task}
+            />
             <ListItem>
                 <IconButton onClick={() => setViewOpen(true)}>
                     <VisibilityIcon />
@@ -82,6 +91,19 @@ export default function TaskMoreMenu({ task, users }) {
                 anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
                 transformOrigin={{ vertical: 'top', horizontal: 'right' }}
             >
+                <MenuItem
+                    onClick={() => {
+                        setCommentOpen(true);
+                        setIsOpen(false);
+                    }}
+                    to="#"
+                    sx={{ color: 'text.secondary' }}
+                >
+                    <ListItemIcon>
+                        <CommentIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Comment" primaryTypographyProps={{ variant: 'body2' }} />
+                </MenuItem>
                 <MenuItem
                     onClick={() => {
                         setEditOpen(true);
