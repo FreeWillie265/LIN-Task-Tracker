@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TasksController extends Controller
 {
@@ -16,6 +17,13 @@ class TasksController extends Controller
     public function index()
     {
         return response(Task::orderBy('id', 'DESC')->get());
+    }
+
+    public function getUserTasks() {
+        $userId = Auth::user()->id;
+        $tasks = Task::where('assignedUser', $userId)->orderBy('id', 'DESC')->with('user')->get();
+
+        return response()->json($tasks);
     }
 
     /**

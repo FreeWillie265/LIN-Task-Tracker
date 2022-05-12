@@ -20,6 +20,7 @@ const columns = [
     { label: 'Title', id: 'title', alignRight: false },
     { label: 'Description', id: 'description', alignRight: false },
     { label: 'Due Date', id: 'dueDate', alignRight: false },
+    { label: 'Assigned User', id: 'assignedUser', alignRight: false },
     { label: 'Completion Status', id: 'completionStatus', alignRight: false }
 ];
 
@@ -36,7 +37,7 @@ function TaskList() {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        axios.get('/tasks').then(
+        axios.get('/user-tasks').then(
             (response) => {
                 setTasks(response.data);
             },
@@ -100,7 +101,8 @@ function TaskList() {
                             const {
                                 title,
                                 description,
-                                dueDate
+                                dueDate,
+                                user
                             } = row;
 
                             return (
@@ -112,6 +114,7 @@ function TaskList() {
                                     <TableCell component="th" scope="row">{title}</TableCell>
                                     <TableCell align="left">{description}</TableCell>
                                     <TableCell align="left">{moment(dueDate).format('MMM-DD-YYYY')}</TableCell>
+                                    <TableCell align="left">{user.name}</TableCell>
                                     <TableCell align="left">
                                         <TaskStatus task={row} />
                                     </TableCell>

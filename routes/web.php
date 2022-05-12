@@ -20,6 +20,7 @@ Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('tasks', TasksController::class);
+Route::get('user-tasks', [TasksController::class, 'getUserTasks']);
 Route::resource('users', UsersController::class);
 Route::patch('toggle-completion-status/{id}', [TasksController::class, 'toggleCompletionStatus']);
 Route::resource('comments', CommentsController::class);
