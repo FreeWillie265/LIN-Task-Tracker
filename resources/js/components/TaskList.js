@@ -31,6 +31,7 @@ function TaskList() {
     const [rowsPerPage, setRowsPerPage] = useState(5);
     const [addTaskOpen, setAddTaskOpen] = useState(false);
     const [tasks, setTasks] = useState([]);
+    const [users, setUsers] = useState([]);
 
     useEffect(() => {
         axios.get('/tasks').then(
@@ -39,6 +40,15 @@ function TaskList() {
             },
             (error) => console.log(error)
         );
+    }, []);
+
+    useEffect(() => {
+        axios.get('/users').then(
+            (response) => {
+                setUsers(response.data)
+            },
+            (error) => console.log(error)
+        )
     }, []);
 
     const handleRequestSort = (event, property) => {
@@ -104,7 +114,7 @@ function TaskList() {
                                         <TaskStatus task={row} />
                                     </TableCell>
                                     <TableCell align="right">
-                                        <TaskMoreMenu task={row} />
+                                        <TaskMoreMenu task={row} users={users}/>
                                     </TableCell>
                                 </TableRow>
                             );

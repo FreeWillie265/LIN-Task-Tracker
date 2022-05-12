@@ -99,6 +99,8 @@ class TasksController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Task::destroy($id);
+
+        return response("Task deleted successfully");
     }
 }

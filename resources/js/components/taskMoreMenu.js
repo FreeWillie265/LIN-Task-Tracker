@@ -14,7 +14,7 @@ import AlertDialogSlide from './AlertDialogSlide';
 import EditTaskModal from './EditTaskModal';
 
 
-export default function TaskMoreMenu({ task }) {
+export default function TaskMoreMenu({ task, users }) {
     const ref = useRef(null);
     const [isOpen, setIsOpen] = useState(false);
     const [editOpen, setEditOpen] = useState(false);
@@ -23,6 +23,15 @@ export default function TaskMoreMenu({ task }) {
 
     function editTask() {
         setEditModalOpen(true);
+    }
+
+    function deleteTask() {
+        axios.delete(`tasks/${task.id}`).then(
+            (response) => {
+                console.log(response.data);
+            },
+            (error) => console.log(error)
+        );
     }
 
     return (
@@ -37,7 +46,7 @@ export default function TaskMoreMenu({ task }) {
 
 
             <AlertDialogSlide
-                action={() => {}}
+                action={() => deleteTask()}
                 open={deleteOpen}
                 setOpen={setDeleteOpen}
                 title="Delete Task"
@@ -48,6 +57,7 @@ export default function TaskMoreMenu({ task }) {
                 open={editModalOpen}
                 setOpen={setEditModalOpen}
                 task={task}
+                users={users}
             />
 
             <IconButton ref={ref} onClick={() => setIsOpen(true)}>

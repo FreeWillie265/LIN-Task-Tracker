@@ -2,13 +2,23 @@ import * as React from 'react';
 import * as Yup from 'yup';
 import { Form, FormikProvider, useFormik } from 'formik';
 import DialogTitle from '@mui/material/DialogTitle';
-import {Dialog, DialogActions, DialogContent, FormControl, InputLabel, Select, Stack, TextField} from '@mui/material';
+import {
+    Dialog,
+    DialogActions,
+    DialogContent,
+    FormControl,
+    InputLabel,
+    MenuItem,
+    Select,
+    Stack,
+    TextField
+} from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import DialogContentText from '@mui/material/DialogContentText';
 import Button from '@mui/material/Button';
 import moment from 'moment';
 
-export default function EditTaskModal({task, open, setOpen}) {
+export default function EditTaskModal({task, open, setOpen, users}) {
     const handleClose = () => setOpen(false);
 
     const AddTaskSchema = Yup.object().shape({
@@ -32,10 +42,11 @@ export default function EditTaskModal({task, open, setOpen}) {
         validationSchema: AddTaskSchema,
         onSubmit: (values, { setSubmitting }) => {
             console.log(`Submitting ${JSON.stringify(values)}`);
-            setSubmitting(false);
             axios.put(`tasks/${task.id}`, values).then(
                 (response) => {
                     console.log(`response: ${JSON.stringify(response.data)}`);
+                    setSubmitting(false);
+                    handleClose();
                 },
                 (errors) => console.log(errors)
             );
@@ -84,21 +95,21 @@ export default function EditTaskModal({task, open, setOpen}) {
                                     helperText={touched.dueDate && errors.dueDate}
                                 />
 
-                                <FormControl fullWidth error={Boolean(touched.userId && errors.userId)}>
-                                <InputLabel id="userId">Username</InputLabel>
+                                <FormControl fullWidth error={Boolean(touched.assignedUser && errors.assignedUser)}>
+                                <InputLabel id="userId">Assigned User</InputLabel>
                                 <Select
                                     fullWidth
-                                    labelId="Username"
-                                    label="Username"
-                                    {...getFieldProps('userId')}
-                                    error={Boolean(touched.userId && errors.userId)}
+                                    labelId="name"
+                                    label="Assigned User"
+                                    {...getFieldProps('assignedUser')}
+                                    error={Boolean(touched.assignedUser && errors.assignedUser)}
                                 >
                                     {users.map((user) => {
-                                        const { id, userName } = user;
+                                        const { id, name } = user;
 
                                         return (
                                             <MenuItem key={id} value={id}>
-                                                {userName}
+                                                {name}
                                             </MenuItem>
                                         );
                                     })}
