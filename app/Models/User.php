@@ -43,6 +43,6 @@ class User extends Authenticatable
     ];
 
     public function tasks() {
-        return $this->hasMany('App\Task', 'assignedUser');
+        return $this->hasMany('App\Models\Task', 'assignedUser');
     }
 }

@@ -45,7 +45,7 @@ class TasksController extends Controller
         $task->description = $request->description;
         $task->dueDate = $request->dueDate;
 
-        $user = User::find($request->asssignedUser);
+        $user = User::find($request->assignedUser);
 
         $user->tasks()->save($task);
 

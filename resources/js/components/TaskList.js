@@ -68,7 +68,7 @@ function TaskList() {
 
     return (
         <>
-            <AddTaskModal open={addTaskOpen} setOpen={setAddTaskOpen} />
+            <AddTaskModal open={addTaskOpen} setOpen={setAddTaskOpen} users={users}/>
             <div className="card-header">
                 <span className="float-sm-start">Tasks</span>
                 <span className="float-sm-end">
