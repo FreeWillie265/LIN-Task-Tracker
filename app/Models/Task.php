@@ -19,4 +19,8 @@ class Task extends Model
     public function user() {
         return $this->belongsTo('App\Models\User', 'assignedUser');
     }
+
+    public function comments() {
+        return $this->hasMany('App\Models\Comment');
+    }
 }
