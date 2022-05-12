@@ -19,13 +19,17 @@ class TasksController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Toggle the completion status of a task.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function toggleCompletionStatus($id, Request $request)
     {
-        //
+        $task = Task::find($id);
+        $task->completionStatus = $request->status;
+        $task->save();
+        return response($request);
     }
 
     /**
@@ -46,28 +50,6 @@ class TasksController extends Controller
         $user->tasks()->save($task);
 
         return response($user);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**

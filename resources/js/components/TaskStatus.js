@@ -12,19 +12,17 @@ export default function TaskStatus({ task }) {
 
     const changeActiveStatus = () => {
         setLoading('visible');
-        setActive(active === 0);
-        /*dispatch(changeUserActivity(task)).then(
+        setActive(active === 1 ? 0 : 1);
+        axios.patch(`/toggle-completion-status/${task.id}`, {'status': active === 1 ? 0 : 1}).then(
             (response) => {
-                setActive(!active);
-                dispatch(getAllUsers());
+                console.log(response.data)
                 setLoading('hidden');
-                return response;
             },
             (error) => {
-                setLoading('hidden');
-                return error;
+                console.log(error);
+                setLoading('hidden')
             }
-        );*/
+        );
     };
 
     return (
@@ -37,7 +35,7 @@ export default function TaskStatus({ task }) {
                 text={`Are you sure you want to change ${task.title}'s completion status?`}
             />
             <CustomSwitch checked={active === 1} setChecked={() => setOpenDialog(true)} color="info" />
-            {/* <CircularProgress color="info" style={{ visibility: loading }} thickness={1} /> */}
+            <CircularProgress color="info" style={{ visibility: loading }} thickness={1} />
         </>
     );
 }

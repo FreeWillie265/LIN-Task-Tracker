@@ -24,3 +24,4 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('tasks', TasksController::class);
 Route::resource('users', UsersController::class);
+Route::patch('toggle-completion-status/{id}', [TasksController::class, 'toggleCompletionStatus']);
