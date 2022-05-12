@@ -11,6 +11,7 @@ import moreVerticalFill from '@iconify/icons-eva/more-vertical-fill';
 import editFill from '@iconify/icons-eva/edit-fill';
 import trash2Outline from '@iconify/icons-eva/trash-2-outline';
 import AlertDialogSlide from './AlertDialogSlide';
+import EditTaskModal from './EditTaskModal';
 
 
 export default function TaskMoreMenu({ task }) {
@@ -18,11 +19,16 @@ export default function TaskMoreMenu({ task }) {
     const [isOpen, setIsOpen] = useState(false);
     const [editOpen, setEditOpen] = useState(false);
     const [deleteOpen, setDeleteOpen] = useState(false);
+    const [editModalOpen, setEditModalOpen] = useState(false);
+
+    function editTask() {
+        setEditModalOpen(true);
+    }
 
     return (
         <>
             <AlertDialogSlide
-                action={() => {}}
+                action={() => editTask()}
                 open={editOpen}
                 setOpen={setEditOpen}
                 title="Edit Task"
@@ -37,6 +43,13 @@ export default function TaskMoreMenu({ task }) {
                 title="Delete Task"
                 text={`Are you sure you want to delete task ${task.title}`}
             />
+
+            <EditTaskModal
+                open={editModalOpen}
+                setOpen={setEditModalOpen}
+                task={task}
+            />
+
             <IconButton ref={ref} onClick={() => setIsOpen(true)}>
                 <Icon icon={moreVerticalFill} width={20} height={20} />
             </IconButton>

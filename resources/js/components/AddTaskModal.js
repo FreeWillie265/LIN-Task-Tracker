@@ -27,7 +27,7 @@ export default function AddTaskModal({open, setOpen}) {
         },
         validationSchema: AddTaskSchema,
         onSubmit: (values, { setSubmitting }) => {
-            console.log(`Submitting ${values}`);
+            console.log(`Submitting ${JSON.stringify(values)}`);
             setSubmitting(false);
         }
     });
@@ -39,9 +39,9 @@ export default function AddTaskModal({open, setOpen}) {
             <Dialog open={open} onClose={handleClose}>
                 <FormikProvider value={formik}>
                     <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
-                        <DialogTitle>Add User</DialogTitle>
+                        <DialogTitle>Add Task</DialogTitle>
                         <DialogContent>
-                            <DialogContentText>Add a user to the system</DialogContentText>
+                            <DialogContentText>Add and assign a task</DialogContentText>
                             <Stack spacing={3}>
                                 <TextField
                                     fullWidth

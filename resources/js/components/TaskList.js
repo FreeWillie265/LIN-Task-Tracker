@@ -23,25 +23,25 @@ const tasks = [
     {
         title: 'Landing page Design',
         description: 'Create several wireframes of how the landing page will look like',
-        dueDate: "11-July-2022",
+        dueDate: "2022-07-11",
         completionStatus: false
     },
     {
         title: 'User Editing',
         description: 'Provide Function to edit users',
-        dueDate: "11-July-2022",
+        dueDate: "2022-07-11",
         completionStatus: false
     },
     {
         title: 'Deploy',
         description: 'Dockerize app and deploy in kubernetes',
-        dueDate: "11-July-2022",
+        dueDate: "2022-07-11",
         completionStatus: false
     },
     {
         title: 'Code Review',
         description: 'Create a page where code reviewers write their findings and recommendations',
-        dueDate: "11-July-2022",
+        dueDate: "2022-07-11",
         completionStatus: false
     }
 
