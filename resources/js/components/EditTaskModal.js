@@ -18,7 +18,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import Button from '@mui/material/Button';
 import moment from 'moment';
 
-export default function EditTaskModal({task, open, setOpen, users}) {
+export default function EditTaskModal({task, open, setOpen, users, reload}) {
     const handleClose = () => setOpen(false);
 
     const AddTaskSchema = Yup.object().shape({
@@ -46,6 +46,7 @@ export default function EditTaskModal({task, open, setOpen, users}) {
                 (response) => {
                     console.log(`response: ${JSON.stringify(response.data)}`);
                     setSubmitting(false);
+                    reload();
                     handleClose();
                 },
                 (errors) => console.log(errors)

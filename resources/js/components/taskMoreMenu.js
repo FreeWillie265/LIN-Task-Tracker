@@ -19,7 +19,7 @@ import ViewTaskModal from './ViewTaskModal';
 import AddCommentModal from './AddCommentModal';
 
 
-export default function TaskMoreMenu({ task, users }) {
+export default function TaskMoreMenu({ task, users, reload }) {
     const ref = useRef(null);
     const [isOpen, setIsOpen] = useState(false);
     const [editOpen, setEditOpen] = useState(false);
@@ -27,15 +27,21 @@ export default function TaskMoreMenu({ task, users }) {
     const [commentOpen, setCommentOpen] = useState(false);
     const [editModalOpen, setEditModalOpen] = useState(false);
     const [viewOpen, setViewOpen] = useState(false);
+    const [addedComment, setAddedComment] = useState(false);
 
     function editTask() {
         setEditModalOpen(true);
+    }
+
+    const reloadComments = () => {
+        setAddedComment(!addedComment);
     }
 
     function deleteTask() {
         axios.delete(`tasks/${task.id}`).then(
             (response) => {
                 console.log(response.data);
+                reload();
             },
             (error) => console.log(error)
         );
@@ -43,7 +49,7 @@ export default function TaskMoreMenu({ task, users }) {
 
     return (
         <>
-            <ViewTaskModal open={viewOpen} setOpen={setViewOpen} task={task}/>
+            <ViewTaskModal open={viewOpen} setOpen={setViewOpen} task={task} reload={addedComment}/>
             <AlertDialogSlide
                 action={() => editTask()}
                 open={editOpen}
@@ -66,12 +72,14 @@ export default function TaskMoreMenu({ task, users }) {
                 setOpen={setEditModalOpen}
                 task={task}
                 users={users}
+                reload={reload}
             />
 
             <AddCommentModal
                 open={commentOpen}
                 setOpen={setCommentOpen}
                 task={task}
+                reload={reloadComments}
             />
             <ListItem>
                 <IconButton onClick={() => setViewOpen(true)}>

@@ -17,7 +17,7 @@ import { LoadingButton } from '@mui/lab';
 import DialogContentText from '@mui/material/DialogContentText';
 import Button from '@mui/material/Button';
 
-export default function AddTaskModal({open, setOpen, users}) {
+export default function AddTaskModal({open, setOpen, users, reload}) {
     const handleClose = () => setOpen(false);
 
     const AddTaskSchema = Yup.object().shape({
@@ -45,6 +45,7 @@ export default function AddTaskModal({open, setOpen, users}) {
                 (response) => {
                     console.log(response.data)
                     setSubmitting(false);
+                    reload();
                     handleClose();
                 },
                 (error) => {

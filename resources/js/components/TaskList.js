@@ -35,6 +35,7 @@ function TaskList() {
     const [addTaskOpen, setAddTaskOpen] = useState(false);
     const [tasks, setTasks] = useState([]);
     const [users, setUsers] = useState([]);
+    const [changed, setChanged] = useState(false);
 
     useEffect(() => {
         axios.get('/user-tasks').then(
@@ -43,7 +44,7 @@ function TaskList() {
             },
             (error) => console.log(error)
         );
-    }, []);
+    }, [changed]);
 
     useEffect(() => {
         axios.get('/users').then(
@@ -53,6 +54,10 @@ function TaskList() {
             (error) => console.log(error)
         )
     }, []);
+
+    const reload = () => {
+        setChanged(!changed);
+    }
 
     const handleRequestSort = (event, property) => {
         const isAsc = orderBy === property && order === 'asc';
@@ -71,7 +76,7 @@ function TaskList() {
 
     return (
         <>
-            <AddTaskModal open={addTaskOpen} setOpen={setAddTaskOpen} users={users}/>
+            <AddTaskModal open={addTaskOpen} setOpen={setAddTaskOpen} users={users} reload={reload}/>
             <div className="card-header">
                 <span className="float-sm-start">Tasks</span>
                 <span className="float-sm-end">
@@ -108,7 +113,7 @@ function TaskList() {
                             return (
                                 <TableRow
                                     hover
-                                    key={title}
+                                    key={row.id}
                                     tabIndex={-1}
                                 >
                                     <TableCell component="th" scope="row">{title}</TableCell>
@@ -119,7 +124,7 @@ function TaskList() {
                                         <TaskStatus task={row} />
                                     </TableCell>
                                     <TableCell align="right">
-                                        <TaskMoreMenu task={row} users={users}/>
+                                        <TaskMoreMenu task={row} users={users} reload={reload}/>
                                     </TableCell>
                                 </TableRow>
                             );

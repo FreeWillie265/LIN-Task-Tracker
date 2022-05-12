@@ -17,7 +17,7 @@ import { LoadingButton } from '@mui/lab';
 import DialogContentText from '@mui/material/DialogContentText';
 import Button from '@mui/material/Button';
 
-export default function AddCommentModal({open, setOpen, task}) {
+export default function AddCommentModal({open, setOpen, task, reload}) {
     const handleClose = () => setOpen(false);
 
     const AddTaskSchema = Yup.object().shape({
@@ -33,13 +33,15 @@ export default function AddCommentModal({open, setOpen, task}) {
             task_id: task.id
         },
         validationSchema: AddTaskSchema,
-        onSubmit: (values, { setSubmitting }) => {
+        onSubmit: (values, { setSubmitting, resetForm }) => {
             console.log(`Submitting ${JSON.stringify(values)}`);
 
             axios.post('/comments', values).then(
                 (response) => {
                     console.log(response.data)
                     setSubmitting(false);
+                    reload();
+                    resetForm();
                     handleClose();
                 },
                 (error) => {

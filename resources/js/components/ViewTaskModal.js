@@ -5,7 +5,7 @@ import {
 import {useEffect, useState} from 'react';
 import Button from '@mui/material/Button';
 
-export default function ViewTaskModal({open, setOpen, task}) {
+export default function ViewTaskModal({open, setOpen, task, reload}) {
     const handleClose = () => setOpen(false);
     const [comments, setComments] = useState([]);
 
@@ -16,7 +16,7 @@ export default function ViewTaskModal({open, setOpen, task}) {
             },
             (error) => console.log(error)
         )
-    }, []);
+    }, [reload]);
 
     return (
         <div>
