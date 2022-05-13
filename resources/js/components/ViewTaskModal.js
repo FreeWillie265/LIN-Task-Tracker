@@ -4,6 +4,7 @@ import {
 } from '@mui/material';
 import {useEffect, useState} from 'react';
 import Button from '@mui/material/Button';
+import moment from 'moment';
 
 export default function ViewTaskModal({open, setOpen, task, reload}) {
     const handleClose = () => setOpen(false);
@@ -40,8 +41,14 @@ export default function ViewTaskModal({open, setOpen, task, reload}) {
 
                             return (
                                 <div key={comment.id}>
-                                    <Typography><u><b>{comment.user.name}: </b></u></Typography>
-                                    <Typography sx={{fontStyle: 'italic'}}>{comment.content}</Typography>
+                                    <div>
+                                        <span className="float-sm-start"><Typography><u><b>{comment.user.name}: </b></u></Typography></span>
+                                        <span className="float-sm-end">{moment(comment.created_at).format('DD-MMM HH:mm')}</span>
+                                    </div>
+                                    <br/>
+                                    <div>
+                                        <Typography sx={{fontStyle: 'italic'}}>{comment.content}</Typography>
+                                    </div>
                                     <hr />
                                 </div>
                             );
