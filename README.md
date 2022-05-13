@@ -16,19 +16,26 @@ Take home assessment for the Luke International Software Developer Post.
 - copy ```.env.example``` to ```.env```. On Windows, run ```copy .env.example .env```. On Linux, run ```cp .env.example .env```
 - create a mysql database and use the name in the ```.env``` file
 - open ```.env``` and change the values for 
-```
-  DB_CONNECTION
-  DB_HOST
-  DB_PORT 
-  DB_DATABASE
-  DB_USERNAME
-  DB_PASSWORD
+```dotenv
+  DB_CONNECTION=
+  DB_HOST=
+  DB_PORT=
+  DB_DATABASE=
+  DB_USERNAME=
+  DB_PASSWORD=
   
-  MAIL_USERNAME
-  MAIL_PASSWORD
-  MAIL_FROM_ADDRESS
+  MAIL_USERNAME=
+  MAIL_PASSWORD=
+  MAIL_FROM_ADDRESS=
   ```
 - If using gmail, use app password. For instructions follow [this link](https://support.google.com/accounts/answer/185833?hl=en)
+- For other email servers, also change the values for:
+```dotenv
+    MAIL_MAILER=smtp
+    MAIL_HOST=smtp.gmail.com
+    MAIL_PORT=465
+    MAIL_ENCRYPTION=ssl
+```
 - Run ```php artisan key:generate```
 - Run ```php artisan migrate```
 - Run ```npm install```
