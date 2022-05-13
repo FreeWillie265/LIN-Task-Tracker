@@ -33,5 +33,5 @@ Take home assessment for the Luke International Software Developer Post.
 - Run ```php artisan migrate```
 - Run ```npm install```
 - Run ```php artisan serve```
-- On a separate terminal, but same root directory, run ```npm run watch```
+- On a separate terminal, but same root directory, run ```npm run dev```
 - visit [http://127.0.0.1:8000](http://127.0.0.1:8000)
