@@ -4,7 +4,7 @@ Take home assessment for the Luke International Software Developer Post.
 
 ### It has been developed using
 
-- Laravel (PHP Framework)
+- Laravel (PHP v7.4.3)
 - React
 - MySQL
 
@@ -42,3 +42,5 @@ Take home assessment for the Luke International Software Developer Post.
 - Run ```php artisan serve```
 - On a separate terminal, but same root directory, run ```npm run dev```
 - visit [http://127.0.0.1:8000](http://127.0.0.1:8000)
+
+###### Due to time I was not able to dockerize the application but that would have been the best course of action to ease deployment
