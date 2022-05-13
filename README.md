@@ -14,6 +14,7 @@ Take home assessment for the Luke International Software Developer Post.
 - Install npm
 - run ```composer install```
 - copy ```.env.example``` to ```.env```. On Windows, run ```copy .env.example .env```. On Linux, run ```cp .env.example .env```
+- create a mysql database and use the name in the ```.env``` file
 - open ```.env``` and change the values for 
 ```
   DB_CONNECTION
