@@ -2,7 +2,7 @@
 
 Take home assessment for the Luke International Software Developer Post.
 
-###It has been developed using
+### It has been developed using
 
 - Laravel (PHP Framework)
 - React
